@@ -1,0 +1,84 @@
+﻿[package]
+name = "glide"
+version = "0.3.1"
+edition = "2021"
+description = "Glide - a fluid island at the top of your Windows screen"
+license = "MIT"
+build = "build.rs"
+
+[build-dependencies]
+winresource = "0.1"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+windows-numerics = "0.2"
+# Needed by name for the #[implement] macro (COM callbacks).
+windows-core = "0.61"
+# Shelf sharing: files are encrypted on this PC before they leave it.
+aes-gcm = "0.10"
+pbkdf2 = { version = "0.12", default-features = false, features = ["hmac"] }
+sha2 = "0.10"
+base64 = "0.22"
+
+[dependencies.windows]
+version = "0.61"
+features = [
+    "ApplicationModel",
+    "Devices_Bluetooth",
+    "Devices_Enumeration",
+    "Devices_Geolocation",
+    "Foundation",
+    "Foundation_Collections",
+    "Media_Control",
+    "Storage_Streams",
+    "UI_Notifications",
+    "UI_Notifications_Management",
+    "Win32_Devices_DeviceAndDriverInstallation",
+    "Win32_Devices_Properties",
+    "Win32_Foundation",
+    "Win32_Globalization",
+    "Win32_Graphics_Imaging",
+    "Win32_Media_Audio",
+    "Win32_Media_Audio_Endpoints",
+    "Win32_System_DataExchange",
+    "Win32_System_Memory",
+    "Win32_System_Ole",
+    "Win32_System_Com_StructuredStorage",
+    "Win32_UI_Input",
+    "Win32_Graphics_Direct2D",
+    "Win32_Graphics_Direct2D_Common",
+    "Win32_Graphics_Direct3D",
+    "Win32_Graphics_Direct3D11",
+    "Win32_Graphics_DirectComposition",
+    "Win32_Graphics_DirectWrite",
+    "Win32_Graphics_Dxgi",
+    "Win32_Graphics_Dxgi_Common",
+    "Win32_Graphics_Gdi",
+    "Win32_Networking_WinHttp",
+    "Win32_Security",
+    "Win32_System_Com",
+    "Win32_System_Diagnostics_ToolHelp",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Power",
+    "Win32_System_Registry",
+    "Win32_System_SystemInformation",
+    "Win32_System_SystemServices",
+    "Win32_System_Threading",
+    "Win32_System_Variant",
+    "Win32_UI_Accessibility",
+    "Win32_UI_HiDpi",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_Shell",
+    "Win32_UI_WindowsAndMessaging",
+]
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
